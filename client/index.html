@@ -1,0 +1,215 @@
+<html lang="en">
+    <head>
+
+        <!-- Standard -->
+        <title>Hat-Tip API Tester</title>
+        <meta charset="utf-8">
+        <meta name="application-name" content="Hat-Tip API tester">
+        <meta name="author" content="Jonathan M. Wilbur jonathan@wilbur.space" />
+        <meta name="description" content="A simple web application for testing HTTP REST APIs." />
+        <meta name="keywords" content="http,rest,api,tester,testing,web,development" />
+        <meta name="theme-color" content="#BBBBBB" />
+        <link rel="canonical" href="http:/hattip.wilbur.space/" />
+        <!-- TODO: viewport -->
+
+        <!-- Dublin Core -->
+        <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+        <meta name="dcterms.rightsHolder" content="Jonathan M. Wilbur" />
+        <meta name="dcterms.rights" content="Released under an MIT License." />
+        <meta name="dcterms.dateCopyrighted" content="2017" />
+
+        <!-- Google -->
+        <meta name="application-url" content="http://hattip.wilbur.space/" />
+        <meta name="thumbnail" content="./foo.jpg" />
+        <meta name="audience" content="grownup" />
+        <meta itemprop="name" content="Hat-Tip API Tester" />
+        <meta itemprop="description" content="A simple web application for testing HTTP REST APIs." />
+        <meta itemprop="image" content="http://hattip.wilbur.space/ogimage.png" />
+
+        <!-- Apple -->
+        <meta name="apple-mobile-web-app-title" content="Hat-Tip" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">
+        <link rel="apple-touch-startup-image" href="/launch.png"> -->
+
+        <!-- Microsoft -->
+        <meta name="msapplication-starturl" content="./" />
+        <meta name="msapplication-tooltip" content="Hat-Tip API Tester" />
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="./tile-image.png" />
+        <!-- <meta name="msapplication-square70x70logo" content="images/tinylogo.png">
+        <meta name="msapplication-square150x150logo" content="images/logo.png">
+        <meta name="msapplication-square310x310logo" content="images/largelogo.png">
+        <meta name="msapplication-wide310x150logo" content="images/widelogo.png"> -->
+
+        <!-- Miscellaneous -->
+        <meta name="designer" content="Jonathan M. Wilbur jonathan@wilbur.space" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="version" content="1.0.0" />
+        <meta name="copyright" content="Copyright 2018 (C) Jonathan M. Wilbur. Released under an MIT License." />
+        <meta name="language" content="English" />
+
+        <!-- Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:url" content="http://hattip.wilbur.space/" />
+        <meta property="og:image" content="http://hattip.wilbur.space/ogimage.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:description" content="A simple web application for testing HTTP REST APIs." />
+        <meta property="og:title" content="Hat-Tip" />
+        <meta property="og:site_name" content="Hat-Tip" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="app" />
+        <meta name="twitter:url" content="http://hattip.wilbur.space/" />
+        <meta name="twitter:title" content="Hat-Tip API Tester" />
+        <meta name="twitter:description" content="A simple web application for testing HTTP REST APIs." />
+        <meta name="twitter:image" content="http://hattip.wilbur.space/ogimage.png" />
+        <meta name="twitter:image:alt" content="Hat-Tip Logo" />
+        <meta name="twitter:domain" content="hattip.wilbur.space" />
+
+        <!-- Application -->
+        <link rel="stylesheet" href="./index.css">
+        <script src="./vue.js"></script>
+
+    </head>
+    <body>
+        <div id="main">
+            <div id="header">
+                <span id="title">Hat-Tip</span>
+                <span id="subtitle">HTTP REST API Testing Tool</span>
+                <span id="header-toolbar">
+                    <label>HTTPS?</label>
+                    <input
+                        type="checkbox"
+                        id="https"
+                        name="https"
+                        title="Use HTTPS?"
+                        alt="Use HTTPS?"
+                        v-model="https" />
+                    <label>API Endpoint</label>
+                    <input
+                        type="text"
+                        id="endpoint"
+                        name="endpoint"
+                        title="API Endpoint"
+                        alt="API Endpoint"
+                        v-model="endpoint"
+                        v-on:blur="saveEndpoint" />
+                </span>
+            </div>
+            <div id="history-toolbar" class="toolbar">
+
+            </div>
+            <div id="history" class="column">
+                <transaction v-for="(txn, index) in txns" key="index.toString()" v-on:select="select(txn)" v-bind:txn="txn"></transaction>
+            </div>
+            <div id="history-footer" class="footer">
+
+            </div>
+            <div id="txn-toolbar" class="toolbar">
+                <form
+                    id="request-form"
+                    v-on:submit="request">
+                    <select
+                        id="verb"
+                        v-model="current.request.verb">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="OPTIONS">OPTIONS</option>
+                        <option value="HEAD">HEAD</option>
+                    </select>
+                    <input
+                        type="text"
+                        id="path"
+                        name="path"
+                        title="Path"
+                        alt="Path"
+                        placeholder="/example/uri/path"
+                        v-model="current.request.path" />
+                    <input
+                        type="submit"
+                        id="send"
+                        name="send"
+                        title="Send Button"
+                        alt="Send Button"
+                        value="Send" />
+                </form>
+                <span id="status-section">
+                    <label for="status">Status Code:</label>
+                    <input
+                        type="text"
+                        id="status"
+                        name="status"
+                        title="Status"
+                        alt="Status"
+                        placeholder="Status"
+                        v-model="current.response.code"
+                        v-bind:style="{ backgroundColor: color }" />
+                </span>
+            </div>
+            <div id="request" class="column">
+                <label for="request-body">Request Body</label>
+                <textarea
+                    id="request-body"
+                    name="request-body"
+                    class="http-body"
+                    alt="Request Body"
+                    title="Request Body"
+                    placeholder="{ &quot;example&quot;: &quot;request&quot; }"
+                    v-model="current.request.body">
+                </textarea>
+            </div>
+            <div id="response" class="column">
+                <label for="response-body">Response Body</label>
+                <textarea
+                    id="response-body"
+                    name="response-body"
+                    class="http-body"
+                    alt="Response Body"
+                    title="Response Body"
+                    placeholder="{ &quot;example&quot;: &quot;response&quot; }"
+                    v-model="current.response.body"
+                    v-bind:style="{ backgroundColor: color }"
+                    readonly>
+                </textarea>
+            </div>
+            <div id="transaction-footer" class="footer">
+                <p>Copyright &copy; 2017 <a href="mailto:jonathan@wilbur.space">Jonathan M. Wilbur</a>. Released under an MIT License.</p>
+                <p>
+                    Permission is hereby granted, free of charge, to any person obtaining
+                    a copy of this software and associated documentation files (the “Software”),
+                    to deal in the Software without restriction, including without limitation
+                    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+                    and/or sell copies of the Software, and to permit persons to whom the
+                    Software is furnished to do so, subject to the following conditions:
+                </p>
+                <p>
+                    The above copyright notice and this permission notice shall be included
+                    in all copies or substantial portions of the Software.
+                </p>
+                <p>
+                    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+                    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+                    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+                    THE SOFTWARE.
+                </p>
+            </div>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>

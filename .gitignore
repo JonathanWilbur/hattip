@@ -1,0 +1,24 @@
+# Custom Ignores
+.vscode/
+
+# Mac OS Ignores
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Ignore PDFs so I don't infringe on intellectual property
+*.pdf

@@ -1,0 +1,186 @@
+/*https://www.materialui.co/flatuicolors*/
+/*https://css-tricks.com/data-uris/*/
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: 
+        url('fonts/vollkorn/TTF/Vollkorn-Regular.ttf') format('truetype'),
+        url('fonts/vollkorn/PS-OTF/Vollkorn-Regular.otf') format('opentype'),
+        url('fonts/vollkorn/Webfonts/Vollkorn-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: 
+        url('fonts/vollkorn/TTF/Vollkorn-Bold.ttf') format('truetype'),
+        url('fonts/vollkorn/PS-OTF/Vollkorn-Bold.otf') format('opentype'),
+        url('fonts/vollkorn/Webfonts/Vollkorn-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Vollkorn', Arial;
+}
+
+select, input {
+    border-style: none;
+}
+
+#txn-toolbar input[type='text'],#txn-toolbar select {
+    background-color: #FFFFFF;
+    color: #444444;
+    padding: 10px;
+    margin: 5px;
+}
+
+#main {
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 20% 40% 40%;
+    grid-template-rows: 50px 45px auto 100px;
+}
+
+#header {
+    grid-row: 1;
+    grid-column: 1 / 4;
+    width: 100%;
+    background-color: #222222;
+    color: white;
+}
+
+#title {
+    margin: 5px;
+    padding: 0px;
+    font-size: 24pt;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#subtitle {
+    margin: 5px;
+    padding: 0px;
+    font-size: 10pt;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#header-toolbar {
+    float: right;
+    margin: 0px;
+}
+
+#header-toolbar * {
+    vertical-align: middle;
+}
+
+#header-toolbar input[type='text'] {
+    background-color: #333333;
+    color: #BBBBBB;
+    padding: 10px;
+    margin: 0px;
+    width: 20vw;
+    height: 50px;
+}
+
+#txn-toolbar {
+    grid-row: 2;
+    grid-column: 2 / 4;
+    background-color: #BBBBBB;
+}
+
+#request-form {
+    display: inline-block;
+}
+
+#history-toolbar {
+    grid-column: 1;
+    background-color: #333333;
+}
+
+#history,#history-footer {
+    background-color: #BBBBBB;
+}
+
+#history {
+    overflow-y: scroll;
+}
+
+#path {
+    width: 30vw;
+}
+
+#send {
+    background-color: #00AA44;
+    color: yellow;
+    margin: 5px;
+    padding: 10px;
+    width: 100px;
+}
+
+#send:hover {
+    background-color: #00CC66;
+}
+
+#status-section {
+    float: right;
+}
+
+#status {
+    width: 50px;
+}
+
+.txn {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    word-wrap: none;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+.txn:hover {
+    background-color: #DDDDDD;
+}
+
+.column {
+    grid-row: 3;
+    padding: 10px;
+    margin: 0px;
+}
+
+textarea.http-body {
+    width: 100%;
+    height: 70vh;
+} 
+
+.footer {
+    grid-row: 4;
+}
+
+#history-footer {
+    grid-column: 1;
+}
+
+#transaction-footer {
+    grid-column: 2 / 4;
+    color: #BBBBBB;
+    font-size: 8pt;
+    text-align: center;
+}
+
+#transaction-footer p {
+    margin: 0px 10px 0px 10px;
+    padding: 0px;
+}
